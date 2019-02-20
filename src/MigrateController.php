@@ -29,27 +29,7 @@ class MigrateController extends \yii\console\controllers\MigrateController
      */
     public $suffix = 'app';
 
-    /**
-     * {@inheritdoc}
-     */
-    public function options($actionID)
-    {
-        return array_merge(
-            parent::options($actionID),
-            ['suffix']
-        );
-    }
 
-    /**
-     * {@inheritdoc}
-     * @since 2.0.8
-     */
-    public function optionAliases()
-    {
-        return array_merge(parent::optionAliases(), [
-            's' => 'suffix',
-        ]);
-    }
 
     /**
      * Creates the migration history table.
