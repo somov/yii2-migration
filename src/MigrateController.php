@@ -9,6 +9,7 @@
 namespace somov\migration;
 
 
+use yii\db\Exception;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Console;
@@ -29,6 +30,27 @@ class MigrateController extends \yii\console\controllers\MigrateController
      */
     public $suffix = 'app';
 
+    /** throw exception on fails
+     * @var bool
+     */
+    public $strict = false;
+
+
+    /**
+     * @param string $class
+     * @return bool
+     * @throws Exception
+     */
+    protected function migrateUp($class)
+    {
+        if (!parent::migrateUp($class)) {
+            if ($this->strict) {
+                throw new Exception((ob_get_level() > 0) ? ob_get_clean() : "failed to apply $class ");
+            }
+            return false;
+        }
+        return true;
+    }
 
 
     /**
